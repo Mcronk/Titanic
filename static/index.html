@@ -1,1 +1,34 @@
-
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Tent Prediction{% endblock %}
+{% block navbar %}
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+        <a class="navbar-brand" href="#">Tent Prediction</a>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <form method="POST" action="">
+            <div class="row">
+                <div class="col-md-12">
+                <h3>To determine the probability of a tent purchase, please enter the following:</h3>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-md-8">
+            <p>{{ form.Sex.label }} {{ wtf.form_field(form.Sex) }}</p>
+            <p>{{ form.Age.label }} {{ form.Age(size=2) }}
+                {% for error in form.Age.errors %}
+                &nbsp;&nbsp;{{ error }}
+            {% endfor %}</p>
+            <p>{{ form.Married.label }} {{ wtf.form_field(form.Married) }}</p>
+            <p>{{ form.Job.label }} {{ wtf.form_field(form.Job) }}</p>
+            <br>
+            {{ form.submit() }}
+            {{ form.hidden_tag() }}
+        </div>
+    </div>
+</div>
+{% endblock %}
