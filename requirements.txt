@@ -1,0 +1,5 @@
+Flask==0.10.1
+urllib3
+requests
+flask_bootstrap
+flask_wtf
