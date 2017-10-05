@@ -1,0 +1,27 @@
+{% extends 'bootstrap/base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Titanic Prediction{% endblock %}
+{% block navbar %}
+    <nav class="navbar navbar-inverse" role="navigation">
+        <div class="container">
+        <a class="navbar-brand" href="/">Titanic Prediction</a>
+        </div>
+    </nav>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                prediction:{{ scoring }} 
+			</div>
+			<div class="col-md-12">
+			    probability: {{ probability }}
+		    </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            <h4><a href="/">Try Again!</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}
