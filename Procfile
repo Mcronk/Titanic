@@ -1,1 +1,1 @@
-web: python Titanic_v2.py
+web: python Titanic_v1.py
