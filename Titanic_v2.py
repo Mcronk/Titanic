@@ -48,12 +48,11 @@ def index():
     form.pclass.data = ''
     ticket = form.ticket.data
     form.ticket.data = ''
-#    fare = form.fare.data
-#    fare = math.log10(fare)
-#    if (fare < 0) : fare = 0 
-#    elif (fare > 8): fare = 9 
-#   else: fare = int(fare) + 1
-    fare = 2 
+    fare = form.fare.data
+    fare = math.log10(fare)
+    if (fare < 0) : fare = 0 
+    elif (fare > 8): fare = 9 
+    else: fare = int(fare) + 1
     form.fare.data = '' 
     sibsp = form.sibsp.data
     form.sibsp.data = ''
@@ -67,7 +66,7 @@ def index():
     response = requests.get(path, headers=headers)
     mltoken = json.loads(response.text).get('token')
     scoring_header = {'Content-Type': 'application/json', 'Authorization': 'Bearer' + mltoken}
-    payload = {"fields": ["pclass","name","sex","sibsp","parch","ticket","embarked","survived_value","pclass_value","age_bin","log_fare_bin"], "values": [[pclass,name,sex,sibsp,parch,ticket,embarked,"","",age,fare]]}
+    payload = {"fields": ["pclass","name","sex","sibsp","parch","ticket","embarked","survived_value","pclass_value","age_bin","log_fare_bin"], "values": [[pclass,name,sex,sibsp,parch,ticket,embarked,'','',age,fare]]}
     scoring = requests.post(scoring_endpoint, json=payload, headers=scoring_header)
 
     scoringDICT = json.loads(scoring.text) 
