@@ -1,4 +1,4 @@
-import urllib3, requests, json, os,math
+import urllib3, requests, json, os
 from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
@@ -6,8 +6,8 @@ from wtforms import StringField, SubmitField, RadioField, FloatField, IntegerFie
 from wtforms.validators import Required, Length, NumberRange
 
 #url = 'https://ibm-watson-ml.mybluemix.net'
-#username = 'a4f0f67f-279b-4fc3-8177-7c26ddb3d2d0'
-#password = '12076bec-b267-407b-989d-d762ce069d0e'
+#username = '1e31f23c-ad34-4927-8283-a55f66caec00'
+#password = 'ec54ced2-3909-4378-a42f-ee7e5081dd3d'
 
 if 'VCAP_SERVICES' in os.environ:
     vcap = json.loads(os.getenv('VCAP_SERVICES'))
@@ -17,7 +17,7 @@ if 'VCAP_SERVICES' in os.environ:
         username = creds['username']
         password = creds['password']
         url = creds['url']
-scoring_endpoint = 'https://us-south.ml.cloud.ibm.com/v3/wml_instances/8db8a0ce-7ff1-4224-9186-eb410ef27f80/deployments/9beb64f0-0b47-463a-bde5-b46c1c5203ae/online'
+scoring_endpoint = 'https://ibm-watson-ml.mybluemix.net/v3/wml_instances/374817e5-8365-42da-a434-cb20e3d1fba4/published_models/9b867182-4926-4144-812b-cc8cf6ea33bf/deployments/c45a87fb-50d1-4b17-ad04-703f551aa99d/online'
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secretpassw0rd'
 bootstrap = Bootstrap(app)
@@ -48,12 +48,7 @@ def index():
     form.pclass.data = ''
     ticket = form.ticket.data
     form.ticket.data = ''
-#    fare = form.fare.data
-#    fare = math.log10(fare)
-#    if (fare < 0) : fare = 0 
-#    elif (fare > 8): fare = 9 
-#   else: fare = int(fare) + 1
-    fare = 2 
+    fare = form.fare.data
     form.fare.data = '' 
     sibsp = form.sibsp.data
     form.sibsp.data = ''
@@ -67,7 +62,7 @@ def index():
     response = requests.get(path, headers=headers)
     mltoken = json.loads(response.text).get('token')
     scoring_header = {'Content-Type': 'application/json', 'Authorization': 'Bearer' + mltoken}
-    payload = {"fields": ["pclass","name","sex","sibsp","parch","ticket","embarked","survived_value","pclass_value","age_bin","log_fare_bin"], "values": [[pclass,name,sex,sibsp,parch,ticket,embarked,"","",age,fare]]}
+    payload = {"fields": ["pclass","name","sex","sibsp","parch","ticket","fare","embarked","Age_Bucket"], "values": [[pclass,name,sex,sibsp,parch,ticket,fare,embarked,age]]}
     scoring = requests.post(scoring_endpoint, json=payload, headers=scoring_header)
 
     scoringDICT = json.loads(scoring.text) 
