@@ -48,11 +48,12 @@ def index():
     form.pclass.data = ''
     ticket = form.ticket.data
     form.ticket.data = ''
-    fare = form.fare.data
-    fare = math.log10(fare)
-    if (fare < 0) : fare = 0 
-    elif (fare > 8): fare = 9 
-    else: fare = int(fare) + 1
+#    fare = form.fare.data
+#    fare = math.log10(fare)
+#    if (fare < 0) : fare = 0 
+#    elif (fare > 8): fare = 9 
+#   else: fare = int(fare) + 1
+    fare = 2 
     form.fare.data = '' 
     sibsp = form.sibsp.data
     form.sibsp.data = ''
